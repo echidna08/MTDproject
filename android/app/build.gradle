@@ -23,17 +23,17 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.mtdman.m_t_d"
-    compileSdk flutter.compileSdkVersion
+    namespace "com.example.newmtd"
+    compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 
     sourceSets {
@@ -41,19 +41,29 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mtdman.m_t_d"
-        minSdk 23 // 여기서 한 번만 정의
-        targetSdk flutter.targetSdkVersion
+        applicationId "com.example.newmtd"
+        minSdkVersion 23
+        targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.0"
     }
 }
 
@@ -61,4 +71,17 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+repositories {
+    google()
+    mavenCentral()
+    maven {
+        url 'https://naver.jfrog.io/artifactory/maven/'
+    }
+}
+
+dependencies {
+    def compose_version = "1.2.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.0"
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+}

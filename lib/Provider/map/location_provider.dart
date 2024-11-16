@@ -2,41 +2,30 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 
+// 위치 정보를 담는 클래스
 class LocationState {
-  final NLatLng currentLocation;
-  final List<NLatLng> nearbyFacilities;
-  final double searchRadius;
+  final NLatLng? currentLocation;
 
-  LocationState({
-    required this.currentLocation,
-    this.nearbyFacilities = const [],
-    this.searchRadius = 30.0,
-  });
+  LocationState({this.currentLocation});
+
+  LocationState copyWith({NLatLng? currentLocation}) {
+    return LocationState(
+      currentLocation: currentLocation ?? this.currentLocation,
+    );
+  }
 }
 
-final locationProvider = StateNotifierProvider<LocationNotifier, LocationState>((ref) {
+final locationProvider =
+    StateNotifierProvider<LocationNotifier, LocationState>((ref) {
   return LocationNotifier();
 });
 
 class LocationNotifier extends StateNotifier<LocationState> {
-  LocationNotifier()
-      : super(LocationState(
-    currentLocation: NLatLng(37.5666102, 126.9783881),
-  ));
+  LocationNotifier() : super(LocationState());
 
-  void updateLocation(NLatLng newLocation) {
-    state = LocationState(
-      currentLocation: newLocation,
-      nearbyFacilities: state.nearbyFacilities,
-      searchRadius: state.searchRadius,
-    );
-  }
-
-  void updateNearbyFacilities(List<NLatLng> facilities) {
-    state = LocationState(
-      currentLocation: state.currentLocation,
-      nearbyFacilities: facilities,
-      searchRadius: state.searchRadius,
-    );
+  void updateLocation(NLatLng location) {
+    if (mounted) {
+      state = state.copyWith(currentLocation: location);
+    }
   }
 }

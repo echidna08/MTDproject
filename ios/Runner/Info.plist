@@ -59,5 +59,17 @@
                 </array>
             </dict>
         </array>
+
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>위치 기반 알림을 위해 위치 권한이 필요합니다.</string>
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>백그라운드 위치 추적을 위해 위치 권한이 필요합니다.</string>
+
+        <key>UIBackgroundModes</key>
+        <array>
+            <string>location</string>
+            <string>fetch</string>
+            <string>remote-notification</string>
+        </array>
     </dict>
 </plist>

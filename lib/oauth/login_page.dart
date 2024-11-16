@@ -7,29 +7,70 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            await _kakaoService.login(context);
-          },
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.black,
-            backgroundColor: Colors.yellow,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(width: 10),
-              Text(
-                'Kakao 로그인',
-                style: TextStyle(fontSize: 16),
+              const Spacer(flex: 1),
+              // 로고 영역
+              Center(
+                child: Column(
+                  children: [
+                    const Text(
+                      'CUver',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF0BC473),
+                        fontFamily: 'Pretendard',
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      '편하게 찾는 정보',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                        fontFamily: 'Pretendard',
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              const Spacer(flex: 3),
+              // 로그인 버튼
+              GestureDetector(
+                onTap: () async {
+                  try {
+                    await _kakaoService.login(context);
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('로그인 실패: $e')),
+                    );
+                  }
+                },
+                child: Image.asset(
+                  'assets/image/kakao_login.png',
+                  height: 48,
+                ),
+              ),
+              const SizedBox(height: 16),
+              // 이용약관
+              const Center(
+                child: Text(
+                  '로그인은 이용약관 및 개인정보 처리방침에 동의하는 것을 의미합니다',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                    fontFamily: 'Pretendard',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 48),
             ],
           ),
         ),

@@ -1,33 +1,38 @@
 // lib/screens/map/components/search_bar.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CustomSearchBar extends ConsumerWidget {  // 이름 변경
+class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 48,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, 3),
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: Offset(0, 2),
           ),
         ],
       ),
       child: TextField(
+        textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: '장소를 검색하세요',
           hintStyle: TextStyle(
+            color: Colors.grey[400],
+            fontSize: 15,
             fontFamily: 'Pretendard',
-            color: Colors.grey,
           ),
-          prefixIcon: Icon(Icons.search, color: Color(0xFF0BC473)),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.grey[400],
+            size: 24,
+          ),
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(horizontal: 20),
         ),

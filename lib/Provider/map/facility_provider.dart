@@ -1,15 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/map/facility.dart';
 
-
-
-
-final facilityProvider = StateNotifierProvider<FacilityNotifier, List<Facility>>((ref) {
+final facilityProvider =
+    StateNotifierProvider<FacilityNotifier, List<Facility>>((ref) {
   return FacilityNotifier();
 });
 
 class FacilityNotifier extends StateNotifier<List<Facility>> {
-  FacilityNotifier() : super([]);
+  FacilityNotifier() : super([geumjeongDistrictOffice]);
 
   void setFacilities(List<Facility> facilities) {
     state = facilities;
